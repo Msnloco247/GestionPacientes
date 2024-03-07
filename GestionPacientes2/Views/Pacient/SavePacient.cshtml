@@ -1,0 +1,106 @@
+﻿@using GestionPacientes2.Core.Application.ViewModels.Pacient;
+@model SavePacientViewModel;
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Anadir Doctor";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando el paciente: {Model.Name}" : "Anadiendo un nuevo Paciente")</h4>
+                </div>
+                <div class="card-body">
+
+
+                <form enctype="multipart/form-data" method="post" asp-controller="Pacient" asp-action="@(editMode ? "Edit":"Create")" >
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Nombre: </label>
+                        <input type="text" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="form-label">Apellido: </label>
+                        <input asp-for="LastName" class="form-control"/>
+                    </div>                
+
+                    <div class="mb-3">
+                        <label asp-for="Identification" class="form-label">Identificacion: </label>
+                        <input type="text" step="any" asp-for="Identification" class="form-control" />
+                        <span asp-validation-for="Identification" class="text-danger"></span>
+                    </div>
+
+                       <div class="mb-3">
+                        <label asp-for="Direction" class="form-label">Direccion: </label>
+                        <input type="text" step="any" asp-for="Direction" class="form-control" />
+                        <span asp-validation-for="Direction" class="text-danger"></span>
+                    </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BornDate" class="form-label">Fecha de Nacimiento: </label>
+                            <input type="date" step="any" asp-for="BornDate" class="form-control"/>
+                            <span asp-validation-for="BornDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Smooker" class="form-label">Fumador: </label>
+                            <select class="form-control">
+                                <option>Seleccione una opcion</option>
+                                <option value="1">Si</option>
+                                <option value="2">No</option>
+
+                            </select>
+                            <span asp-validation-for="Smooker" class="text-danger"></span>
+                        </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label">Celular: </label>
+                            <input asp-for="Phone" type="tel" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Identification" class="form-label">Identificacion: </label>
+                            <input asp-for="Identification" type="text" class="form-control" />
+                            <span asp-validation-for="Identification" class="text-danger"></span>
+                        </div>
+
+                    <div class="mb-3">
+                        <label asp-for="File" class="form-label">Seleccione un archivo:</label>
+                            @if (editMode)
+                            {
+                                <input type="file" class="form-control" asp-for="File" accept="image/*" multiple />
+                            }
+                            else
+                            {
+                                <input type="file" class="form-control" required asp-for="File" accept="image/*" multiple />
+
+                            }
+                        <span asp-validation-for="File" class="text-danger"></span>
+
+                    </div>
+                        <div class="mb-3">
+                            <label asp-for="Alergies" class="form-label">Alergias: </label>
+                            <textarea type="text" step="any" asp-for="Alergies" class="form-control" /></textarea>
+                            <span asp-validation-for="Alergies" class="text-danger"></span>
+                        </div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a asp-controller="Pacient" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

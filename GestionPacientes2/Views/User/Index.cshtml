@@ -1,0 +1,66 @@
+﻿@using GestionPacientes2.Core.Application.ViewModels.User;
+@model List<UserViewModel>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a asp-controller="User" asp-action="Register" class="btn btn-success">Crear nuevo usuario</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No hay usuarios existentes</h2>
+        }
+        else
+        {
+                <div class="col-12">
+                   <div>
+                    <table class="table table-light mt-3">
+                        <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Nombre de Usuario</th>
+                                    <th scope="col">Tipo de usuario</th>
+                                <th scope="col">Eliminar</th>
+                                <th scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            @foreach (UserViewModel user in Model)
+            {
+                                <tr>
+                                    <td>@user.Name</td>
+                                    <td>@user.LastName</td>
+                                    <td>@user.Email</td>
+                                    <td>@user.UserName</td>
+                                    <td>@if(user.Access == 1)
+                                        {
+                                            <p>Asistente</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Administrador</p>
+                                        }
+                                    </td>
+                                    <td><a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" class="btn btn-outline-danger"> Eliminar</a></td>
+                                    <td><a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-outline-warning">Editar</a></td>
+                                </tr>
+                   
+            }
+                            </tbody>
+                        </table>
+                   </div>
+                </div>
+        }
+    </div>
+
+</div>

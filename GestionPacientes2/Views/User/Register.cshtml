@@ -1,0 +1,93 @@
+﻿@using GestionPacientes2.Core.Application.ViewModels.User;
+@model SaveUserViewModel
+@{    
+    ViewData["Title"] = "Registro";
+    bool editMode = Model.Id == 0 ? false : true;
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                @if (editMode)
+                {
+                    <div class="card-header bg-dark text-light">
+                        <h4>Editar usuario @Model.Name</h4>
+                    </div>
+                }
+                else
+                {
+                <div class="card-header bg-dark text-light">
+                    <h4>Registro de nuevo usuario</h4>
+                </div>
+                }
+                <div class="card-body">
+
+                
+                    <form method="post" asp-action="@(editMode ? "Edit":"Register")" asp-controller="User" >
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nombre: </label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label">Apellido: </label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label">Nombre de usuario: </label>
+                            <input asp-for="Username" class="form-control" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Contraseña: </label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label">Confirmar contraseña: </label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Correo: </label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label asp-for="Access" class="form-label">Acceso: </label>
+                            <select asp-for="Access" class="form-select">
+                                    <option>Seleccione el tipo de usuario</option>
+                                    <option value="1"> Asistente</option>
+                                    <option value="2">Administrador</option>            
+                            </select>
+
+                            <span asp-validation-for="Access" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a asp-controller="User" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                    </form>
+                  
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

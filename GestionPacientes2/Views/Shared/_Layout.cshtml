@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using GestionPacientes2.Core.Application.Helpers;
+@using GestionPacientes2.Core.Application.ViewModels.User;
+@inject IHttpContextAccessor httpContextAccesor;
+@{var User = httpContextAccesor.HttpContext.Session.Get<UserViewModel>("user"); };
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/gestor_de_pacientes.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @if(User != null)
+    {
+        
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fw-bold  text-dark box-shadow mb-3">
+            <div class="container-fluid">
+                <p class="navbar-brand mt-3" asp-area="" asp-controller="Home" asp-action="Index">Gestor de Pacientes</p>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse  collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav nav">
+                        
+                    @if(User.Access == 2)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Doctor" asp-action="Index">Medicos</a>
+                        </li>
+                          <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="LabTest" asp-action="Index">Pruebas de Laboratorio</a>
+                          </li>
+                    
+                    }else{
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Pacient" asp-action="Index">Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Citas</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link " asp-area="" asp-controller="TestResult" asp-action="Index">Resultados</a>
+                            </li>
+                    }
+                    </ul>
+                        <a class="nav-link text-dark " asp-area="" asp-controller="User" asp-action="LogOut">LogOut</a>
+                            
+                </div>
+            </div>
+        </nav>
+    </header>
+    }
+    <div class="container">
+        <main role="main" >
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

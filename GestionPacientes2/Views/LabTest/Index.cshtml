@@ -1,0 +1,53 @@
+﻿@using GestionPacientes2.Core.Application.ViewModels.LabTest;
+@model List<LabTestViewModel>
+@{
+    ViewData["Title"] = "LabTest";
+}
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a asp-controller="LabTest" asp-action="Create" class="btn btn-outline-success">Crear nueva Prueba de laboratorio</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No hay pruebas de laboratorio</h2>
+        }
+        else
+        {
+
+                <div class="col-12">
+                    <div>
+                        <table class="table table-light mt-3">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Eliminar</th>
+                                <th scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (LabTestViewModel labTest in Model)
+                                {
+                                    <tr>
+                                        <td>@labTest.Name</td>
+                                    
+                                        <td><a asp-controller="LabTest" asp-action="Delete" asp-route-id="@labTest.Id" class="btn btn-outline-danger"> Eliminar</a></td>
+                                        <td><a asp-controller="LabTest" asp-action="Edit" asp-route-id="@labTest.Id" class="btn btn-outline-warning">Editar</a></td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        
+    </div>
+
+</div>

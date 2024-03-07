@@ -1,0 +1,77 @@
+﻿@using GestionPacientes2.Core.Application.ViewModels.Doctor;
+@model SaveDoctorViewModel;
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Anadir Doctor";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando el medico: {Model.Name}" : "Anadiendo un nuevo Medico")</h4>
+                </div>
+                <div class="card-body">
+
+
+                <form enctype="multipart/form-data" method="post" asp-controller="Doctor" asp-action="@(editMode ? "Edit":"Create")" >
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Nombre: </label>
+                        <input type="text" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="form-label">Apellido: </label>
+                        <input asp-for="LastName" class="form-control"/>
+                    </div>                
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Correo: </label>
+                        <input type="email" step="any" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="File" class="form-label">Seleccione un archivo:</label>
+                            @if (editMode)
+                            {
+                                <input type="file" class="form-control" asp-for="File" accept="image/*" multiple />
+                            }
+                            else
+                            {
+                                <input type="file" class="form-control" required asp-for="File" accept="image/*" multiple />
+
+                            }
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label">Celular: </label>
+                            <input asp-for="Phone" type="tel" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Identification" class="form-label">Identificacion: </label>
+                            <input asp-for="Identification" type="text" class="form-control" />
+                            <span asp-validation-for="Identification" class="text-danger"></span>
+                        </div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a asp-controller="Doctor" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
